@@ -44,24 +44,25 @@ emissionDataForClimateAssessment <- function(
             system.file(package = "piamInterfaces"), "iiasaTemplates", "climate_assessment_variables.yaml"
         )
     }
-    return (remindEmissionReport %>%
-        as.quitte() %>%
-        # Consider only the global region
-        filter(region %in% c("GLO", "World")) %>%
-        # Extract only the variables needed for climate-assessment. These are provided from the iiasaTemplates in the
-        # piamInterfaces package. See also:
-        # https://github.com/pik-piam/piamInterfaces/blob/master/inst/iiasaTemplates/climate_assessment_variables.yaml
-        generateIIASASubmission(
-            mapping = "AR6",
-            outputFilename = NULL,
-            iiasatemplate = climateAssessmentYaml,
-            logFile = logFile
-        ) %>%
-        mutate(region = factor("World"), scenario = factor(scenarioName)) %>%
-        # Rename the columns using str_to_title which capitalizes the first letter of each word
-        rename_with(str_to_title) %>%
-        # Transforms the yearly values for each variable from a long to a wide format. The resulting data frame then has
-        # one column for each year and one row for each variable
-        pivot_wider(names_from = "Period", values_from = "Value")
+    return(
+        remindEmissionReport %>%
+            as.quitte() %>%
+            # Consider only the global region
+            filter(region %in% c("GLO", "World")) %>%
+            # Extract only the variables needed for climate-assessment. These are provided from the iiasaTemplates in the
+            # piamInterfaces package. See also:
+            # https://github.com/pik-piam/piamInterfaces/blob/master/inst/iiasaTemplates/climate_assessment_variables.yaml
+            generateIIASASubmission(
+                mapping = "AR6",
+                outputFilename = NULL,
+                iiasatemplate = climateAssessmentYaml,
+                logFile = logFile
+            ) %>%
+            mutate(region = factor("World"), scenario = factor(scenarioName)) %>%
+            # Rename the columns using str_to_title which capitalizes the first letter of each word
+            rename_with(str_to_title) %>%
+            # Transforms the yearly values for each variable from a long to a wide format. The resulting data frame then has
+            # one column for each year and one row for each variable
+            pivot_wider(names_from = "Period", values_from = "Value")
     )
 }
