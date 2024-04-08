@@ -14,7 +14,9 @@ Imports:
     readr,
     dplyr,
     stringr,
-    piamInterfaces
+    piamInterfaces,
+    gdxrrw,
+    yaml
 Suggests:
     testthat
 Encoding: UTF-8
