@@ -4,10 +4,14 @@
 #' to be set.
 #' @md
 #' @param emissionFile Location of the REMIND emission file
+#' @param infillingDatabaseFile Location of the infilling database file
+#' @param workingDir Directory where the results will be stored. Default is 'climate-assessment-data'
+#' @param scriptsDir Directory where the climate-assessment scripts are located. Default is 'CLIMATE_ASSESSMENT_ROOT/scripts'
 #' @author Tonn Rüter
 #' @export
 runHarmoniseAndInfill <- function(
     emissionsFile,
+    infillingDatabaseFile,
     workingDir = "climate-assessment-data",
     scriptsDir = file.path(Sys.getenv("CLIMATE_ASSESSMENT_ROOT"), "scripts"),
     verbose = NULL
