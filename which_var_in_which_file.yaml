@@ -1,8 +1,0 @@
-- magicc7Variable: AR6 climate diagnostics|Surface Temperature (GSAT)|MAGICCv7.5.3|50.0th
-    Percentile
-  gamsVariable: pm_globalMeanTemperature
-  fileName: p15_magicc_temp
-- magicc7Variable: AR6 climate diagnostics|Effective Radiative Forcing|Basket|Anthropogenic|MAGICCv7.5.3|50.0th
-    Percentile
-  gamsVariable: p15_forc_magicc
-  fileName: p15_forc_magicc
