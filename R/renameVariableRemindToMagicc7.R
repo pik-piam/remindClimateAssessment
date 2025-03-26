@@ -10,7 +10,7 @@
 #' @author Tonn Rüter
 #' @export
 renameVariableRemindToMagicc7 <- function(varName, magiccVersion = "7.5.3") {
-    varName <- gsub("MAGICC7 AR6|", "AR6 climate diagnostics|", varName, fixed = TRUE)
-    varName <- gsub(paste0("\\|([^\\|]+)$", "|MAGICCv", magiccVersion, "|\\1"), varName)
-    return(varName)
+  varName <- gsub("MAGICC7 AR6|", "AR6 climate diagnostics|", varName, fixed = TRUE)
+  varName <- gsub(paste0("\\|([^\\|]+)$", "|MAGICCv", magiccVersion, "|\\1"), varName)
+  return(varName)
 }
