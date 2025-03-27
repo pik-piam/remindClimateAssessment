@@ -46,7 +46,7 @@ A BibTeX entry for LaTeX users is
 @Misc{,
   title = {remindClimateAssessment: REMIND integration of IIASA's `climate-assessment` package},
   author = {Tonn Rüter},
-  date = {2025-03-27},
+  date = {2025-03-28},
   year = {2025},
   url = {https://github.com/pik-piam/remindClimateAssessment},
   note = {Version: 0.0.5},

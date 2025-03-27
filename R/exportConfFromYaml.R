@@ -20,5 +20,11 @@ exportConfFromYaml <- function(yamlFileName = "default.yaml") {
       "Missing: ", paste(mustHave[!available], collapse = ", ")
     ))
   }
-  return(associateVariablesAndFiles)
+  return(
+    associateVariablesAndFiles %>% mutate(
+      remindVariable = vapply(.data$magicc7Variable,
+                              renameVariableMagicc7ToRemind,
+                              USE.NAMES = FALSE, FUN.VALUE = character(1))
+    )
+  )
 }
