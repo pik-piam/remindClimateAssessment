@@ -5,30 +5,30 @@
 \title{emissionDataForClimateAssessment}
 \usage{
 emissionDataForClimateAssessment(
-  remindEmissionReport,
-  scenarioName,
-  climateAssessmentYaml = NULL,
-  logFile = "output/missing.log"
+  qf,
+  scenario,
+  variablesFile = NULL,
+  logFile = NULL
 )
 }
 \arguments{
-\item{remindEmissionReport}{Data frame containing REMIND emission data}
+\item{qf}{\code{quitte} data frame containing the emission data}
 
-\item{scenarioName}{Name of the scenario}
+\item{scenario}{Name of the scenario}
 
-\item{climateAssessmentYaml}{Path to the yaml file containing the variables needed for climate-assessment. If no
-file path is given, the function gets the yaml file from the piamInterfaces package}
+\item{variablesFile}{Path to the yaml file containing the variables needed for climate-assessment. If no file path
+is provided, the function gets the yaml file from the piamInterfaces package}
 
 \item{logFile}{Path to the log file. Default is "output/missing.log"}
 }
 \value{
-Data frame with the REMIND emission data reshaped for climate assessment
+\code{quitte} data frame with the REMIND emission data reshaped for climate assessment
 }
 \description{
 Converts remind emission data from long to wide format suitable for climate assessment. Only considers regions "GLO"
 and "World" and extracts only the variables needed for climate assessment. Per default these are provided from the
 AR6 mapping in the piamInterfaces package. The resulting data frame has one column for each year and one row for
-each variable.
+each variable. For more information visit https://pyam-iamc.readthedocs.io/en/stable/data.html
 }
 \examples{
 \dontrun{
