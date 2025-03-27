@@ -1,6 +1,6 @@
 # REMIND integration of IIASA's `climate-assessment` package
 
-R package **remindClimateAssessment**, version **0.0.4**
+R package **remindClimateAssessment**, version **0.0.5**
 
 [![CRAN status](https://www.r-pkg.org/badges/version/remindClimateAssessment)](https://cran.r-project.org/package=remindClimateAssessment) [![R build status](https://github.com/pik-piam/remindClimateAssessment/workflows/check/badge.svg)](https://github.com/pik-piam/remindClimateAssessment/actions) [![codecov](https://codecov.io/gh/pik-piam/remindClimateAssessment/branch/master/graph/badge.svg)](https://app.codecov.io/gh/pik-piam/remindClimateAssessment) 
 
@@ -38,7 +38,7 @@ In case of questions / problems please contact Tonn Rüter <tonn.rueter@pik-pots
 
 To cite package **remindClimateAssessment** in publications use:
 
-Rüter T (2025). "remindClimateAssessment: REMIND integration of IIASA's `climate-assessment` package." Version: 0.0.4, <https://github.com/pik-piam/remindClimateAssessment>.
+Rüter T (2025). "remindClimateAssessment: REMIND integration of IIASA's `climate-assessment` package." Version: 0.0.5, <https://github.com/pik-piam/remindClimateAssessment>.
 
 A BibTeX entry for LaTeX users is
 
@@ -49,6 +49,6 @@ A BibTeX entry for LaTeX users is
   date = {2025-03-27},
   year = {2025},
   url = {https://github.com/pik-piam/remindClimateAssessment},
-  note = {Version: 0.0.4},
+  note = {Version: 0.0.5},
 }
 ```
