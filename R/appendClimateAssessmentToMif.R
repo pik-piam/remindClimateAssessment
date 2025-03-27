@@ -9,6 +9,7 @@
 #' @importFrom quitte as.quitte write.mif
 #' @importFrom dplyr filter
 #' @importFrom readr write_lines
+#' @export
 appendClimateAssessmentToMif <- function(qf, mif) {
   as.quitte(mif) %>%
     # remove data from old MAGICC7 runs to avoid duplicated

@@ -21,6 +21,7 @@
 #' runTimes <- c("task2 end" = Sys.time())
 #' runTimeReport(runTimes)
 #' }
+#' @export
 runTimeReport <- function(runTimes, prefix = "") {
   if (length(runTimes) %% 2 != 0) {
     stop(paste(
