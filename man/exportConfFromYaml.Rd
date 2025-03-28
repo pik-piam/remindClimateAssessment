@@ -9,6 +9,9 @@ exportConfFromYaml(yamlFileName = "default.yaml")
 \arguments{
 \item{yamlFileName}{Location of the configuration file. Default is 'which_var_in_which_file.yaml'}
 }
+\value{
+A tibble data frame containing the association between climate assessment and gams variable names
+}
 \description{
 Read yaml export configuration. It determines which variables to extract from the MAGICC7 climate assessment data &
 to which file they are supposed to be written. Resulting data frame contains \code{magicc7Variable}, \code{gamsVariable} and

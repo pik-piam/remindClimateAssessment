@@ -6,11 +6,13 @@
 #' @md
 #' @param yamlFileName Location of the configuration file. Default is 'which_var_in_which_file.yaml'
 #' @importFrom yaml read_yaml
+#' @importFrom dplyr bind_rows
+#' @return A tibble data frame containing the association between climate assessment and gams variable names
 #' @author Tonn Rüter
 #' @export
 exportConfFromYaml <- function(yamlFileName = "default.yaml") {
-  # Read yaml file
-  associateVariablesAndFiles <- as.data.frame(do.call(rbind, read_yaml(yamlFileName)))
+  # Reading the yaml file gives a list-of-lists. `bind_rows` converts it to a tibble with appropriate column names
+  associateVariablesAndFiles <- bind_rows(read_yaml(yamlFileName))
   # Check if all necessary columns are present
   mustHave <- c("magicc7Variable", "gamsVariable", "fileName")
   available <- mustHave %in% names(associateVariablesAndFiles)
@@ -21,6 +23,7 @@ exportConfFromYaml <- function(yamlFileName = "default.yaml") {
     ))
   }
   return(
+    # Add REMIND variable names based on conversion function
     associateVariablesAndFiles %>% mutate(
       remindVariable = vapply(.data$magicc7Variable,
                               renameVariableMagicc7ToRemind,
