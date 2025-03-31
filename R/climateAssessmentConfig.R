@@ -42,13 +42,10 @@ climateAssessmentConfig <- function(outputDir, mode) {
     logFile    = normalizePath(file.path(outputDir, "log_climate.txt"), mustWork = FALSE),
     climateDir = normalizePath(file.path(outputDir, "climate-assessment-data"), mustWork = FALSE),
     workersDir = normalizePath(file.path(outputDir, "climate-assessment-data", "workers"), mustWork = FALSE),
-    archiveDir = if (isTRUE(runConfig$archiveClimateAssessmentData)) {
-      timestamp <- format(Sys.time(), "%Y%m%d_%H%M%S")
-      normalizePath(
-        file.path(outputDir, "climate-assessment-data", "archive", paste0("iteration_", timestamp)), mustWork = FALSE
-      )
+    archiveDir = if (!isTRUE(runConfig$archiveClimateAssessmentData)) {
+      normalizePath(file.path(outputDir, "climate-assessment-data", "archive"), mustWork = FALSE)
     } else {
-      NULL
+      normalizePath(file.path(runConfig$archiveClimateAssessmentData, mustWork = FALSE))
     },
     scriptsDir = normalizePath(file.path(runConfig$climate_assessment_root, "scripts"), mustWork = TRUE),
     magiccBin  = normalizePath(file.path(runConfig$climate_assessment_magicc_bin), mustWork = TRUE),
