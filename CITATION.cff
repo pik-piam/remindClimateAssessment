@@ -4,7 +4,7 @@ type: software
 title: 'remindClimateAssessment: REMIND integration of IIASA''s `climate-assessment`
   package'
 version: 0.0.5
-date-released: '2025-03-28'
+date-released: '2025-03-31'
 abstract: The REMIND integration of IIASA's `climate-assessment` provides a standardized
   interface to simple climate models such as MAGICC7.
 authors:
