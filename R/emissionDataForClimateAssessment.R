@@ -55,9 +55,9 @@ emissionDataForClimateAssessment <- function(qf, scenario, variablesFile = NULL,
         iiasatemplate = variablesFile,
         logFile = logFile
       ) %>%
-      mutate(region = factor("World"), scenario = factor(scenario)) %>%
       # Rename the columns using str_to_title which capitalizes the first letter of each word
       rename_with(str_to_title) %>%
+      mutate(Model = factor("REMIND"), Region = factor("World"), Scenario = factor(scenario)) %>%
       # Transforms the yearly values for each variable from a long to a wide format. The resulting data frame then has
       # one column for each year and one row for each variable
       pivot_wider(names_from = "Period", values_from = "Value")
