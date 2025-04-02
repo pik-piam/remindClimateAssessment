@@ -29,10 +29,11 @@
 #' )
 #' }
 # nolint end
+#' @importFrom magrittr %>%
 #' @export
 climateAssessmentConfig <- function(outputDir, mode) {
   if (!(mode %in% c("report", "iteration")) || file.exists(mode))
-    stop("'mode' must be either 'report', 'iteration' or valid path")
+    stop("'mode' must be either 'report', 'iteration', 'impulse', or valid path")
   runConfig <- read_yaml(file.path(outputDir, "cfg.txt"))
   cfg <- list(
     outputDir  = normalizePath(outputDir, mustWork = TRUE),
@@ -56,7 +57,7 @@ climateAssessmentConfig <- function(outputDir, mode) {
     infillingDatabase = normalizePath(runConfig$climate_assessment_infiller_db, mustWork = TRUE),
     probabilisticFile = if (mode == "report") {
       normalizePath(runConfig$climate_assessment_magicc_prob_file_reporting, mustWork = TRUE)
-    } else if (mode == "iteration") {
+    } else if (mode %in% c("iteration", "impulse")) {
       normalizePath(runConfig$climate_assessment_magicc_prob_file_iteration, mustWork = TRUE)
     } else {
       normalizePath(mode, mustWork = TRUE)
@@ -74,8 +75,21 @@ climateAssessmentConfig <- function(outputDir, mode) {
     file.path(cfg$climateDir, paste0("ar6_climate_assessment_", cfg$scenario, "_harmonized_infilled.csv")),
     mustWork = FALSE
   )
+  cfg$emissionsImpulseFile <- if (mode == "impulse") {
+    normalizePath(file.path(cfg$climateDir, paste0("emissions_impulse_", cfg$scenario, ".xlsx")), mustWork = FALSE)
+  } else {
+    NULL
+  }
+  # Climate assessment file has a different prefix when running in impulse mode. Use this to distinguish between the two
   cfg$climateAssessmentFile <- normalizePath(
-    file.path(cfg$climateDir, paste0("ar6_climate_assessment_", cfg$scenario, "_harmonized_infilled_IAMC_climateassessment.xlsx")), # nolint
+    file.path(
+      cfg$climateDir,
+      if (mode == "impulse") {
+        paste0("emissions_impulse_", cfg$scenario, "_harmonized_infilled_IAMC_climateassessment.xlsx")
+      } else {
+        paste0("ar6_climate_assessment_", cfg$scenario, "_harmonized_infilled_IAMC_climateassessment.xlsx")
+      }
+    ),
     mustWork = FALSE
   )
   return(cfg)

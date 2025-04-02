@@ -32,6 +32,7 @@ reportClimateAssessmentConfig <- function(cfg) {
       "  containing nSets  = ", cfg$nSets, "\n",
       "  remindEmissionsFile   = ", cfg$remindEmissionsFile, "\n",
       "  harmInfEmissionsFile  = ", cfg$harmInfEmissionsFile, "\n",
+      "  emissionsImpulseFile  = ", cfg$emissionsImpulseFile, "\n",
       "  climateAssessmentFile = ", cfg$climateAssessmentFile, "\n"
     )
   )
