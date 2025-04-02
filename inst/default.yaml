@@ -1,0 +1,8 @@
+# TODO: Here be description of the file structure and the process to add variabels to the config 
+# TODO: Also name REMIND variables here? Association is a bit unclear, since MAGICC7 variables are named quite different
+- magicc7Variable: Surface Air Temperature Change
+  gamsVariable: pm_globalMeanTemperature
+  fileName: p15_magicc_temp
+- magicc7Variable: Effective Radiative Forcing|Anthropogenic
+  gamsVariable: p15_forc_magicc
+  fileName: p15_forc_magicc
