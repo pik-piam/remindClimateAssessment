@@ -3,7 +3,7 @@
 #' Collects all necessary files and directories to set up climate assessment run from a REMIND output directory
 #'
 #' @param outputDir A REMIND output directory
-#' @param mode Determines which probabiliy files is used. Must be either "report", "iteration", or a valid path
+#' @param mode Determines which probabiliy files is used. Must be either "report", "iteration" or "impulse"
 #'
 #' @return A list containing the configuration settings for the climate assessment
 # nolint start
@@ -32,7 +32,7 @@
 #' @importFrom magrittr %>%
 #' @export
 climateAssessmentConfig <- function(outputDir, mode) {
-  if (!(mode %in% c("report", "iteration")) || file.exists(mode))
+  if (!(mode %in% c("report", "iteration", "impulse")) || file.exists(mode))
     stop("'mode' must be either 'report', 'iteration', 'impulse', or valid path")
   runConfig <- read_yaml(file.path(outputDir, "cfg.txt"))
   cfg <- list(
