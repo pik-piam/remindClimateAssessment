@@ -9,7 +9,7 @@ climateAssessmentConfig(outputDir, mode)
 \arguments{
 \item{outputDir}{A REMIND output directory}
 
-\item{mode}{Determines which probabiliy files is used. Must be either "report", "iteration", or a valid path}
+\item{mode}{Determines which probabiliy files is used. Must be either "report", "iteration" or "impulse"}
 }
 \value{
 A list containing the configuration settings for the climate assessment

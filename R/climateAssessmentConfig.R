@@ -3,7 +3,7 @@
 #' Collects all necessary files and directories to set up climate assessment run from a REMIND output directory
 #'
 #' @param outputDir A REMIND output directory
-#' @param mode Determines which probabiliy files is used. Must be either "report", "iteration", or a valid path
+#' @param mode Determines which probabiliy files is used. Must be either "report", "iteration" or "impulse"
 #'
 #' @return A list containing the configuration settings for the climate assessment
 # nolint start
@@ -29,10 +29,10 @@
 #' )
 #' }
 # nolint end
-#' @importFrom magrittr %>%
+#' @importFrom yaml read_yaml
 #' @export
 climateAssessmentConfig <- function(outputDir, mode) {
-  if (!(mode %in% c("report", "iteration")) || file.exists(mode))
+  if (!(mode %in% c("report", "iteration", "impulse")) || file.exists(mode))
     stop("'mode' must be either 'report', 'iteration', 'impulse', or valid path")
   runConfig <- read_yaml(file.path(outputDir, "cfg.txt"))
   cfg <- list(
@@ -66,31 +66,76 @@ climateAssessmentConfig <- function(outputDir, mode) {
   # Some more file needed to run climate assessment
   cfg$parameterSets <- read_yaml(cfg$probabilisticFile)
   cfg$nSets         <- length(cfg$parameterSets$configurations)
+  # Climate assessment files have a different prefix when depending on mode (i.e. run type)
+  assessmentFilesPrefix <- if (mode == "report") {
+    "ar6_climate_assessment_"
+  } else if (mode == "iteration") {
+    "ar6_iteration_"
+  }else {
+    # Must be impulse
+    "ar6_emissions_impulse_"
+  }
   # Emissions file is the output of the harmnonization and infilling step
   cfg$remindEmissionsFile  <- normalizePath(
-    file.path(cfg$climateDir, paste0("ar6_climate_assessment_", cfg$scenario, ".csv")),
+    file.path(cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, ".csv")),
     mustWork = FALSE
   )
-  cfg$harmInfEmissionsFile <- normalizePath(
-    file.path(cfg$climateDir, paste0("ar6_climate_assessment_", cfg$scenario, "_harmonized_infilled.csv")),
-    mustWork = FALSE
-  )
+  # Keep this as a separate file to distringuish against the remind emissions file
   cfg$emissionsImpulseFile <- if (mode == "impulse") {
-    normalizePath(file.path(cfg$climateDir, paste0("emissions_impulse_", cfg$scenario, ".xlsx")), mustWork = FALSE)
+    normalizePath(file.path(cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, ".xlsx")), mustWork = FALSE)
   } else {
     NULL
   }
-  # Climate assessment file has a different prefix when running in impulse mode. Use this to distinguish between the two
+  # Climate assessment generated harmonization and infilling file
+  cfg$harmInfEmissionsFile <- if (mode == "report") {
+    normalizePath(
+      file.path(cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, "_harmonized_infilled.csv")),
+      mustWork = FALSE
+    )
+  } else {
+    # When running climate assessment in impulse mode the harmonized and infilled emissions file from a previous
+    # iteration run is used. Use the assessmentFilesPrefix from iteration run config here
+    normalizePath(
+      file.path(cfg$climateDir, paste0("ar6_iteration_", cfg$scenario, "_harmonized_infilled.csv")),
+      mustWork = FALSE
+    )
+  }
+  # Climate assessment generated output file
   cfg$climateAssessmentFile <- normalizePath(
     file.path(
-      cfg$climateDir,
-      if (mode == "impulse") {
-        paste0("emissions_impulse_", cfg$scenario, "_harmonized_infilled_IAMC_climateassessment.xlsx")
-      } else {
-        paste0("ar6_climate_assessment_", cfg$scenario, "_harmonized_infilled_IAMC_climateassessment.xlsx")
-      }
+      cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, "_harmonized_infilled_IAMC_climateassessment.xlsx")
     ),
     mustWork = FALSE
+  )
+  # Climate assessment generates files with `_excluded_scenarios_` in the file name in case certain checks did not pass
+  # Error checking idiom could look like any(file.exists(cfg$excludedScenarioFiles))
+  cfg$excludedScenarioFiles <- c(
+    # From ca docs: Writing out scenarios with no confidence due to reporting completeness issues
+    "No Confidence" = normalizePath(
+      file.path(cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, "_excluded_scenarios_noconfidence.csv")),
+      mustWork = FALSE
+    ),
+    # No Emissions|CO2 or Emissions|CO2|Energy and Industrial Processes found in reporting file
+    "No CO2 reported" = normalizePath(
+      file.path(
+        cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, "_excluded_scenarios_noCO2orCO2EnIPreported.csv")
+      ),
+      mustWork = FALSE
+    ),
+    # Check against historical data failed
+    "Too far from historical" = normalizePath(
+      file.path(
+        cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, "_excluded_scenarios_toofarfromhistorical.csv")
+      ),
+      mustWork = FALSE
+    ),
+    # Exclude all scenarios with negative non-CO2 values
+    "Unexpected Negatives" = normalizePath(
+      file.path(
+        cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, "_excluded_scenarios_unexpectednegatives.csv")
+      ),
+      mustWork = FALSE
+    )
   )
   return(cfg)
 }
