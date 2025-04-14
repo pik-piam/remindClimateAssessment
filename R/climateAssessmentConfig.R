@@ -29,7 +29,7 @@
 #' )
 #' }
 # nolint end
-#' @importFrom magrittr %>%
+#' @importFrom yaml read_yaml
 #' @export
 climateAssessmentConfig <- function(outputDir, mode) {
   if (!(mode %in% c("report", "iteration", "impulse")) || file.exists(mode))
@@ -66,29 +66,35 @@ climateAssessmentConfig <- function(outputDir, mode) {
   # Some more file needed to run climate assessment
   cfg$parameterSets <- read_yaml(cfg$probabilisticFile)
   cfg$nSets         <- length(cfg$parameterSets$configurations)
+  # Climate assessment files have a different prefix when depending on mode (i.e. run type)
+  assessmentFilesPrefix <- if (mode == "report") {
+    "ar6_climate_assessment_"
+  } else if (mode == "iteration") {
+    "ar6_iteration_"
+  }else {
+    # Must be impulse
+    "ar6_emissions_impulse_"
+  }
   # Emissions file is the output of the harmnonization and infilling step
   cfg$remindEmissionsFile  <- normalizePath(
-    file.path(cfg$climateDir, paste0("ar6_climate_assessment_", cfg$scenario, ".csv")),
+    file.path(cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, ".csv")),
     mustWork = FALSE
   )
-  cfg$harmInfEmissionsFile <- normalizePath(
-    file.path(cfg$climateDir, paste0("ar6_climate_assessment_", cfg$scenario, "_harmonized_infilled.csv")),
-    mustWork = FALSE
-  )
+  # Keep this as a separate file to distringuish against the remind emissions file
   cfg$emissionsImpulseFile <- if (mode == "impulse") {
-    normalizePath(file.path(cfg$climateDir, paste0("emissions_impulse_", cfg$scenario, ".xlsx")), mustWork = FALSE)
+    normalizePath(file.path(cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, ".xlsx")), mustWork = FALSE)
   } else {
     NULL
   }
-  # Climate assessment file has a different prefix when running in impulse mode. Use this to distinguish between the two
+  # Climate assessment generated harmonization and infilling file
+  cfg$harmInfEmissionsFile <- normalizePath(
+    file.path(cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, "_harmonized_infilled.csv")),
+    mustWork = FALSE
+  )
+  # Climate assessment generated output file
   cfg$climateAssessmentFile <- normalizePath(
     file.path(
-      cfg$climateDir,
-      if (mode == "impulse") {
-        paste0("emissions_impulse_", cfg$scenario, "_harmonized_infilled_IAMC_climateassessment.xlsx")
-      } else {
-        paste0("ar6_climate_assessment_", cfg$scenario, "_harmonized_infilled_IAMC_climateassessment.xlsx")
-      }
+      cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, "_harmonized_infilled_IAMC_climateassessment.xlsx")
     ),
     mustWork = FALSE
   )
