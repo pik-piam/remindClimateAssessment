@@ -98,5 +98,35 @@ climateAssessmentConfig <- function(outputDir, mode) {
     ),
     mustWork = FALSE
   )
+  # Climate assessment generates files with `_excluded_scenarios_` in the file name in case certain checks did not pass
+  # Error checking idiom could look like any(file.exists(cfg$excludedScenarioFiles))
+  cfg$excludedScenarioFiles <- c(
+    # From ca docs: Writing out scenarios with no confidence due to reporting completeness issues
+    "No Confidence" = normalizePath(
+      file.path(cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, "_excluded_scenarios_noconfidence.csv")),
+      mustWork = FALSE
+    ),
+    # No Emissions|CO2 or Emissions|CO2|Energy and Industrial Processes found in reporting file
+    "No CO2 reported" = normalizePath(
+      file.path(
+        cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, "_excluded_scenarios_noCO2orCO2EnIPreported.csv")
+      ),
+      mustWork = FALSE
+    ),
+    # Check against historical data failed
+    "Too far from historical" = normalizePath(
+      file.path(
+        cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, "_excluded_scenarios_toofarfromhistorical.csv")
+      ),
+      mustWork = FALSE
+    ),
+    # Exclude all scenarios with negative non-CO2 values
+    "Unexpected Negatives" = normalizePath(
+      file.path(
+        cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, "_excluded_scenarios_unexpectednegatives.csv")
+      ),
+      mustWork = FALSE
+    )
+  )
   return(cfg)
 }
