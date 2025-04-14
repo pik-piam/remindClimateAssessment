@@ -87,10 +87,19 @@ climateAssessmentConfig <- function(outputDir, mode) {
     NULL
   }
   # Climate assessment generated harmonization and infilling file
-  cfg$harmInfEmissionsFile <- normalizePath(
-    file.path(cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, "_harmonized_infilled.csv")),
-    mustWork = FALSE
-  )
+  cfg$harmInfEmissionsFile <- if (mode == "report") {
+    normalizePath(
+      file.path(cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, "_harmonized_infilled.csv")),
+      mustWork = FALSE
+    )
+  } else {
+    # When running climate assessment in impulse mode the harmonized and infilled emissions file from a previous
+    # iteration run is used. Use the assessmentFilesPrefix from iteration run config here
+    normalizePath(
+      file.path(cfg$climateDir, paste0("ar6_iteration_", cfg$scenario, "_harmonized_infilled.csv")),
+      mustWork = FALSE
+    )
+  }
   # Climate assessment generated output file
   cfg$climateAssessmentFile <- normalizePath(
     file.path(
