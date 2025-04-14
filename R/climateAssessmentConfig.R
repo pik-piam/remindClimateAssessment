@@ -39,7 +39,7 @@ climateAssessmentConfig <- function(outputDir, mode) {
     outputDir  = normalizePath(outputDir, mustWork = TRUE),
     scenario   = lucode2::getScenNames(outputDir),
     condaEnv   = normalizePath(runConfig$pythonPath, mustWork = TRUE),
-    isArchived = isTRUE(runConfig$archiveClimateAssessmentData),
+    isArchived = isTRUE(runConfig$climate_assessment_archive),
     logFile    = normalizePath(file.path(outputDir, "log_climate.txt"), mustWork = FALSE),
     climateDir = normalizePath(file.path(outputDir, "climate-assessment-data"), mustWork = FALSE),
     workersDir = normalizePath(file.path(outputDir, "climate-assessment-data", "workers"), mustWork = FALSE),

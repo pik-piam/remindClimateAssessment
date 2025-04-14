@@ -36,3 +36,6 @@ extraFiles <- c("pm_globalMeanTemperature", "p15_forc_magicc")
 archiveClimateAssessmentData(cfg$climateArchiveDir, extraFiles)
 }
 }
+\author{
+Tonn Rüter
+}

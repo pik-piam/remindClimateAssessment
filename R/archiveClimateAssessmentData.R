@@ -17,6 +17,8 @@
 #' extraFiles <- c("pm_globalMeanTemperature", "p15_forc_magicc")
 #' archiveClimateAssessmentData(cfg$climateArchiveDir, extraFiles)
 #' }
+#' @author Tonn Rüter
+#' @export
 archiveClimateAssessmentData <- function(climateDir, climateArchiveDir = NULL, extraFiles = c(), returnFn = TRUE) {
   if (!dir.exists(climateDir)) {
     stop("Climate directory ", climateDir, " does not exist.")
