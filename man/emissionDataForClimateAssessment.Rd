@@ -17,8 +17,8 @@ emissionDataForClimateAssessment(
 
 \item{scenario}{Name of the scenario}
 
-\item{mapping}{Name of the mapping file from the \code{piamInterfaces} library, must be 'AR6', 'NGFS_AR6' or 'AR6_MAgPIE'.
-Defaults to 'AR6'}
+\item{mapping}{Name of the mapping file from the \code{piamInterfaces} library, must be 'AR6', 'climateassessment',
+'NGFS_AR6' or 'AR6_MAgPIE'. Defaults to 'AR6'}
 
 \item{variablesFile}{Path to the yaml file containing the variables needed for climate-assessment. If no file path
 is provided, the function gets the yaml file from the piamInterfaces package}

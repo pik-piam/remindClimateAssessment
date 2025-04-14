@@ -8,8 +8,8 @@
 #' @md
 #' @param qf `quitte` data frame containing the emission data
 #' @param scenario Name of the scenario
-#' @param mapping Name of the mapping file from the `piamInterfaces` library, must be 'AR6', 'NGFS_AR6' or 'AR6_MAgPIE'.
-#'  Defaults to 'AR6'
+#' @param mapping Name of the mapping file from the `piamInterfaces` library, must be 'AR6', 'climateassessment',
+#'  'NGFS_AR6' or 'AR6_MAgPIE'. Defaults to 'AR6'
 #' @param variablesFile Path to the yaml file containing the variables needed for climate-assessment. If no file path
 #'  is provided, the function gets the yaml file from the piamInterfaces package
 #' @param logFile Path to the log file. Default is "output/missing.log"
@@ -44,8 +44,8 @@ emissionDataForClimateAssessment <- function(qf, scenario, mapping = "AR6", vari
       system.file(package = "piamInterfaces"), "iiasaTemplates", "climate_assessment_variables.yaml"
     ))
   }
-  if (!(mapping %in% c("AR6", "NGFS_AR6", "AR6_MAgPIE"))) {
-    stop("mapping must be either 'AR6', 'NGFS_AR6' or 'AR6_MAgPIE' but is '", mapping, "'")
+  if (!(mapping %in% c("AR6", "NGFS_AR6", "AR6_MAgPIE", "climateassessment"))) {
+    stop("mapping must be either 'AR6', 'NGFS_AR6', 'AR6_MAgPIE' or 'climateassessment' but is '", mapping, "'")
   }
   return(
     qf %>%
