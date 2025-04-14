@@ -17,7 +17,7 @@
 #' @importFrom quitte is.quitte
 #' @importFrom dplyr filter mutate rename_with
 #' @importFrom tidyr pivot_wider
-#' @importFrom magrittr %>% %in%
+#' @importFrom magrittr %>%
 #' @importFrom stringr str_to_title
 #' @importFrom piamInterfaces generateIIASASubmission
 #' @examples
