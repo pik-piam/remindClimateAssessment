@@ -1,7 +1,7 @@
 Type: Package
 Package: remindClimateAssessment
 Title: REMIND integration of IIASA's `climate-assessment` package
-Version: 0.0.8
+Version: 0.0.9
 Date: 2025-04-15
 Authors@R:
     person("Tonn", "Rüter", , "tonn.rueter@pik-potsdam.de", role = c("aut", "cre"))

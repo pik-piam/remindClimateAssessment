@@ -17,6 +17,7 @@ reportClimateAssessmentConfig <- function(cfg) {
   return(
     paste0(
       paste0("climate assessment config of '", cfg$outputDir, "'\n"),
+      "  mode       = ", cfg$mode, "\n",
       "  scenario   = ", cfg$scenario, "\n",
       "  condaEnv   = ", cfg$condaEnv, "\n",
       "  isArchived = ", cfg$isArchived, "\n",

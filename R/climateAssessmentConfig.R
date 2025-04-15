@@ -36,6 +36,7 @@ climateAssessmentConfig <- function(outputDir, mode) {
     stop("'mode' must be either 'report', 'iteration', 'impulse', or valid path")
   runConfig <- read_yaml(file.path(outputDir, "cfg.txt"))
   cfg <- list(
+    mode       = mode,
     outputDir  = normalizePath(outputDir, mustWork = TRUE),
     scenario   = lucode2::getScenNames(outputDir),
     condaEnv   = normalizePath(runConfig$pythonPath, mustWork = TRUE),

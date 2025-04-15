@@ -7,6 +7,7 @@
 archiveClimateAssessmentData(
   climateDir,
   climateArchiveDir = NULL,
+  suffix = "",
   extraFiles = c(),
   returnFn = TRUE
 )
@@ -17,6 +18,9 @@ archiveClimateAssessmentData(
 \item{climateArchiveDir}{Directory where the climate assessment data will be archived. Default is NULL, in which case
 a new 'archive' subdir is created in the climate directory. Note: This directory is NOT deleted after archiving,
 only the temporary directory created within it is}
+
+\item{suffix}{String appended to the file name. Can be used to identify the climate assessment run mode (i.e.
+'report', 'iteration', 'impulse') in the archive file name. Defaults to empty string}
 
 \item{extraFiles}{Character vector of additional file paths to include in the archive. Default is an empty vector}
 

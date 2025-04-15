@@ -7,6 +7,8 @@
 #' @param climateArchiveDir Directory where the climate assessment data will be archived. Default is NULL, in which case
 #'  a new 'archive' subdir is created in the climate directory. Note: This directory is NOT deleted after archiving,
 #'  only the temporary directory created within it is
+#' @param suffix String appended to the file name. Can be used to identify the climate assessment run mode (i.e.
+#'  'report', 'iteration', 'impulse') in the archive file name. Defaults to empty string
 #' @param extraFiles Character vector of additional file paths to include in the archive. Default is an empty vector
 #' @param returnFn A logical value indicating whether to return the path to the tar file. Defaults to TRUE
 #' @return If returnFn is TRUE, the function returns the path to the tar file. Otherwise, it returns invisible()
@@ -19,18 +21,20 @@
 #' }
 #' @author Tonn Rüter
 #' @export
-archiveClimateAssessmentData <- function(climateDir, climateArchiveDir = NULL, extraFiles = c(), returnFn = TRUE) {
+archiveClimateAssessmentData <- function(
+  climateDir, climateArchiveDir = NULL, suffix = "", extraFiles = c(), returnFn = TRUE
+) {
   if (!dir.exists(climateDir)) {
     stop("Climate directory ", climateDir, " does not exist.")
   }
   # Create a temporary directory to store the files to be archived. If climateArchiveDir is not specified, create a new
   # 'archive' subdir in the climate directory
   if (is.null(climateArchiveDir)) {
-    tmpDir <- file.path(climateDir, "archive", paste0("iteration_", format(Sys.time(), "%y%m%d_%H%M%S")))
+    tmpDir <- file.path(climateDir, "archive", paste0("run_", format(Sys.time(), "%y%m%d_%H%M%S"), suffix))
   } else if (!dir.exists(climateArchiveDir)) {
     stop("Climate archive directory ", climateArchiveDir, " does not exist.")
   } else {
-    tmpDir <- file.path(climateArchiveDir, paste0("iteration_", format(Sys.time(), "%y%m%d_%H%M%S")))
+    tmpDir <- file.path(climateArchiveDir, paste0("run_", format(Sys.time(), "%y%m%d_%H%M%S"), suffix))
   }
   dir.create(tmpDir)
   # Find all data files in climate directory, combine with extraFiles
