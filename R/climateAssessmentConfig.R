@@ -80,9 +80,16 @@ climateAssessmentConfig <- function(outputDir, mode) {
     file.path(cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, ".csv")),
     mustWork = FALSE
   )
-  # Keep this as a separate file to distringuish against the remind emissions file
+  # Keep the emission impulse file as a separate entity to distringuish against the remind emissions file, since the
+  # it is based on the harmonized and infilled emissions file from a previous climate assessment iteration run and thus
+  # conceptually different, however ...
   cfg$emissionsImpulseFile <- if (mode == "impulse") {
-    normalizePath(file.path(cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, ".xlsx")), mustWork = FALSE)
+    normalizePath(
+      # ... still append the '_harmonized_infilled' suffix here to highlight its origin. Note that climate assessment
+      # impulse do not feature the harm/inf step and directly go to emulation step
+      file.path(cfg$climateDir, paste0(assessmentFilesPrefix, cfg$scenario, "_harmonized_infilled.csv")),
+      mustWork = FALSE
+    )
   } else {
     NULL
   }
