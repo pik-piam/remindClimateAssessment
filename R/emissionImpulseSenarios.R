@@ -13,7 +13,7 @@
 #' @param endYear Extends the original observation periods. Defaults to 2200
 #' @param inbetween Duration of the extended observation periods in years. Defaults to 1
 #' @return `quitte` data frame containing all data for the emission impulse scenarios
-#' @importFrom quitte interpolate_missing_periods as.IAMCTimeseries
+#' @importFrom quitte interpolate_missing_periods pivot_periods_wider
 #' @importFrom dplyr arrange bind_rows case_when mutate
 #' @examples
 #' \dontrun{
@@ -61,5 +61,5 @@ emissionImpulseSenarios <- function(
         )
     )
   }
-  return(impulses %>% as.IAMCTimeseries())
+  return(impulses %>% pivot_periods_wider())
 }

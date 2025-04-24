@@ -3,8 +3,8 @@ message: If you use this software, please cite it using the metadata from this f
 type: software
 title: 'remindClimateAssessment: REMIND integration of IIASA''s `climate-assessment`
   package'
-version: 0.0.9
-date-released: '2025-04-22'
+version: 0.0.10
+date-released: '2025-04-24'
 abstract: The REMIND integration of IIASA's `climate-assessment` provides a standardized
   interface to simple climate models such as MAGICC7.
 authors:
