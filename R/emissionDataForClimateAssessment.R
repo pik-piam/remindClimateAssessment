@@ -58,7 +58,8 @@ emissionDataForClimateAssessment <- function(qf, scenario, mapping = "AR6", vari
         mapping = mapping,
         outputFilename = NULL,
         iiasatemplate = variablesFile,
-        logFile = logFile
+        logFile = logFile,
+        checkSummation = FALSE
       ) %>%
       # Rename the columns using str_to_title which capitalizes the first letter of each word
       rename_with(str_to_title) %>%
