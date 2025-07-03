@@ -7,3 +7,5 @@
 ^.*CITATION.cff$
 ^.lintr$
 ^tests/.lintr$
+^.*\.Rproj$
+^\.Rproj\.user$
