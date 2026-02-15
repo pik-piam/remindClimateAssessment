@@ -42,6 +42,7 @@ climateAssessmentConfig <- function(outputDir, mode) {
     condaEnv   = normalizePath(runConfig$pythonPath, mustWork = TRUE),
     isArchived = isTRUE(runConfig$climate_assessment_archive),
     logFile    = normalizePath(file.path(outputDir, "log_climate.txt"), mustWork = FALSE),
+    reportsDir = normalizePath(file.path(outputDir, "reporting"), mustWork = FALSE),
     climateDir = normalizePath(file.path(outputDir, "climate-assessment-data"), mustWork = FALSE),
     workersDir = normalizePath(file.path(outputDir, "climate-assessment-data", "workers"), mustWork = FALSE),
     archiveDir = if (!isTRUE(runConfig$archiveClimateAssessmentData)) {
