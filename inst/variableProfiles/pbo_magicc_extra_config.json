@@ -1,0 +1,14 @@
+{
+  "out_dynamic_vars": [
+    "DAT_HEATUPTK_AGGREG",
+    "DAT_CO2_CONC",
+    "DAT_CH4_CONC",
+    "DAT_N2O_CONC",
+    "DAT_CO2_AIR2LAND_FLUX",
+    "DAT_CO2_AIR2OCEAN_FLUX",
+    "DAT_CO2PF_EMIS",
+    "DAT_CH4PF_EMIS",
+    "DAT_PCO2S_CONC",
+    "DAT_EESC_CONC"
+  ]
+}

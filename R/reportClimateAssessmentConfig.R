@@ -14,6 +14,8 @@
 #'
 #' @export
 reportClimateAssessmentConfig <- function(cfg) {
+  # Show "<built-in default>" for optional overrides that are unset (NULL)
+  orDefault <- function(x) if (is.null(x)) "<built-in default>" else x
   return(
     paste0(
       paste0("climate assessment config of '", cfg$outputDir, "'\n"),
@@ -25,12 +27,16 @@ reportClimateAssessmentConfig <- function(cfg) {
       "  climateDir = ", cfg$climateDir, "\n",
       "  workersDir = ", cfg$workersDir, "\n",
       "  archiveDir = ", cfg$archiveDir, "\n",
-      "  scriptsDir = ", cfg$scriptsDir, "\n",
       "  magiccBin  = ", cfg$magiccBin, "\n",
       "  variablesFile = ", cfg$variablesFile, "\n",
       "  infillingDatabase = ", cfg$infillingDatabase, "\n",
       "  probabilisticFile = ", cfg$probabilisticFile, "\n",
       "  containing nSets  = ", cfg$nSets, "\n",
+      "  magiccVersion     = ", cfg$magiccVersion, "\n",
+      "  climateAssessmentVersion = ", cfg$climateAssessmentVersion, "\n",
+      "  magiccExtraConfig       = ", orDefault(cfg$magiccExtraConfig), "\n",
+      "  outputVariablesFile     = ", orDefault(cfg$outputVariablesFile), "\n",
+      "  variableDefinitionsFile = ", orDefault(cfg$variableDefinitionsFile), "\n",
       "  remindEmissionsFile   = ", cfg$remindEmissionsFile, "\n",
       "  harmInfEmissionsFile  = ", cfg$harmInfEmissionsFile, "\n",
       "  emissionsImpulseFile  = ", cfg$emissionsImpulseFile, "\n",

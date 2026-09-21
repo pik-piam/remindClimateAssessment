@@ -1,0 +1,21 @@
+{
+  "out_dynamic_vars": [
+    "DAT_HEATUPTK_AGGREG",
+    "DAT_CO2_CONC",
+    "DAT_CH4_CONC",
+    "DAT_N2O_CONC",
+    "DAT_CO2_AIR2LAND_FLUX",
+    "DAT_CO2_AIR2OCEAN_FLUX",
+    "DAT_CO2PF_EMIS",
+    "DAT_CH4PF_EMIS",
+    "DAT_HEATCONTENT_AGGREG_TOTAL",
+    "DAT_SLR_TOT",
+    "DAT_SLR_EXPANSION",
+    "DAT_SLR_LANDWATER",
+    "DAT_SLR_GL",
+    "DAT_SLR_GIS_SMB",
+    "DAT_SLR_GIS_SID",
+    "DAT_SLR_AIS_SID",
+    "DAT_SLR_AIS_SMB"
+  ]
+}

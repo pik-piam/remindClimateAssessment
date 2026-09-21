@@ -11,20 +11,26 @@ export(renameVariableMagicc7ToRemind)
 export(renameVariableRemindToMagicc7)
 export(reportClimateAssessmentConfig)
 export(runTimeReport)
-importFrom(dplyr,arrange)
-importFrom(dplyr,bind_rows)
-importFrom(dplyr,case_when)
-importFrom(dplyr,filter)
-importFrom(dplyr,mutate)
-importFrom(dplyr,rename_with)
+importFrom(dplyr,
+  arrange,
+  bind_rows,
+  case_when,
+  filter,
+  mutate,
+  rename_with
+)
 importFrom(magrittr,"%>%")
 importFrom(piamInterfaces,generateIIASASubmission)
-importFrom(quitte,as.quitte)
-importFrom(quitte,interpolate_missing_periods)
-importFrom(quitte,is.quitte)
-importFrom(quitte,pivot_periods_wider)
-importFrom(quitte,write.mif)
+importFrom(piamenv,condaPackageVersion)
+importFrom(quitte,
+  as.quitte,
+  interpolate_missing_periods,
+  is.quitte,
+  pivot_periods_wider,
+  write.mif
+)
 importFrom(readr,write_lines)
+importFrom(rlang,.data)
 importFrom(stringr,str_to_title)
 importFrom(tidyr,pivot_wider)
 importFrom(utils,tar)

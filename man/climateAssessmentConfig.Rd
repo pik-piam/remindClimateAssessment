@@ -29,7 +29,6 @@ list(
   workersDir = "<outputDir>/climate-assessment-data/workers",
   climateDir = "<outputDir>/climate-assessment-data",
   archiveDir = "",
-  scriptsDir = "<Depending on your installation>",
   magiccBin  = "<Depending on your installation>",
   variablesFile = "<Depending on piamInterfaces>",
   infillingDatabase = "<Depending on your REMIND default.cfg>",

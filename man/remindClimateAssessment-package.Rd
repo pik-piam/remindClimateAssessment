@@ -18,5 +18,10 @@ Useful links:
 \author{
 \strong{Maintainer}: Tonn Rüter \email{tonn.rueter@pik-potsdam.de}
 
+Authors:
+\itemize{
+  \item Tonn Rüter \email{tonn.rueter@pik-potsdam.de}
+}
+
 }
 \keyword{internal}
