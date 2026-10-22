@@ -35,6 +35,24 @@ climateAssessmentConfig <- function(outputDir, mode) {
   if (!(mode %in% c("report", "iteration", "impulse")) || file.exists(mode))
     stop("'mode' must be either 'report', 'iteration', 'impulse', or valid path")
   runConfig <- read_yaml(file.path(outputDir, "cfg.txt"))
+  # SCI: the files of its workflow come from one directory with fixed file names, replacing the AR6 ones
+  if (identical(runConfig$climate_assessment_setup, "SCI")) {
+    magiccDir <- "magicc-v7.6.0a3"
+    parameterSets <- file.path(magiccDir, "configs", "magicc-ar7-fast-track-drawnset-v0-3-0")
+    sciFiles <- c(
+      climate_assessment_infiller_db                = "infilling_db_sci.csv",
+      climate_assessment_infiller_db_cfcs           = "cmip7_ghg_inversions.csv",
+      climate_assessment_history_file               = "history_cmip7_scenariomip.csv",
+      climate_assessment_aneris_overrides_file      = "sci_overrides.csv",
+      climate_assessment_magicc_bin                 = file.path(magiccDir, "bin", "magicc"),
+      climate_assessment_magicc_prob_file_iteration = paste0(parameterSets, "_median-ecs-1cfg.json"),
+      climate_assessment_magicc_prob_file_reporting = paste0(parameterSets, ".json")
+    )
+    if (!is.character(runConfig$climate_assessment_sci_dir) || !dir.exists(runConfig$climate_assessment_sci_dir)) {
+      stop("The SCI setup needs cfg$climate_assessment_sci_dir to be an existing folder")
+    }
+    runConfig[names(sciFiles)] <- as.list(file.path(runConfig$climate_assessment_sci_dir, sciFiles))
+  }
   cfg <- list(
     mode       = mode,
     outputDir  = normalizePath(outputDir, mustWork = TRUE),
@@ -95,6 +113,19 @@ climateAssessmentConfig <- function(outputDir, mode) {
   } else {
     NULL
   }
+  # Setup of the climate assessment, "AR6" or "SCI". The files that only belong to one of them are optional. Arguments
+  # that select the setup in the python scripts, for the harmonization/infilling and for running the climate emulator
+  cfg$setup <- if (isSet(runConfig$climate_assessment_setup)) runConfig$climate_assessment_setup else "AR6"
+  optionalFileArg <- function(flag, entry) {
+    if (isSet(runConfig[[entry]])) paste(flag, normalizePath(runConfig[[entry]], mustWork = TRUE))
+  }
+  historyFileArg <- optionalFileArg("--history-file", "climate_assessment_history_file")
+  cfg$harmInfArgs <- paste(c(
+    "--setup", cfg$setup, historyFileArg,
+    optionalFileArg("--aneris-overrides-file", "climate_assessment_aneris_overrides_file"),
+    optionalFileArg("--infilling-database-cfcs", "climate_assessment_infiller_db_cfcs")
+  ), collapse = " ")
+  cfg$climateArgs <- paste(c("--setup", cfg$setup, historyFileArg), collapse = " ")
   # Climate assessment files have a different prefix when depending on mode (i.e. run type)
   assessmentFilesPrefix <- if (mode == "report") {
     "ar6_climate_assessment_"
